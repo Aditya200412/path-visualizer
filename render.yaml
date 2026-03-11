@@ -5,23 +5,16 @@
 services:
   - type: web
     name: pathfinder-api
-    runtime: java
+    runtime: docker
     region: oregon
     plan: free
     rootDir: backend
-    buildCommand: mvn clean package -DskipTests --no-transfer-progress
-    startCommand: java -jar target/pathfinding-visualizer-1.0.0.jar
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
-
     envVars:
       - key: PORT
         value: 8080
-
-      # Paste your Anthropic key in Render dashboard → Environment
       - key: ANTHROPIC_API_KEY
         sync: false
-
-      # Set this to your Vercel frontend URL after deploying frontend
-      # e.g. https://path-visualiser.vercel.app
       - key: CORS_ALLOWED_ORIGINS
         sync: false
